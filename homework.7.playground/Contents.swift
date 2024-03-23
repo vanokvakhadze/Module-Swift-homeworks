@@ -113,3 +113,32 @@ calculateKanye(array: arrayOfkanye, year: 2005)
 
 //5.შექმენით String-ის ტიპის lazy property wrapper სახელად, cachedData. ინიციალიზება გაუკეთეთ ქლოჟერით რომელიც აბრუნებს სტრინგს მნიშვნელობით “lazy ინიციალიზებულია”. მიწვდით ამ ფროფერთის და დაბეჭდეთ მისი მნიშვნელობa
 
+/// udpdate  
+
+@propertyWrapper struct CachedData {
+    var text: String?
+    lazy var textValue = "lazy ინიციალიზებულია"
+    
+    var wrappedValue: String {
+       mutating get{
+           if text == nil {
+               text = textValue
+               return  textValue
+           }else {
+               return text!
+           }
+        }
+        set {
+            text = newValue
+        }
+    }
+}
+
+
+struct givetext {
+    @CachedData var newText: String
+}
+
+var str = givetext()
+str.newText
+print(str.newText)
